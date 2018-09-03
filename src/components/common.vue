@@ -19,7 +19,10 @@
           <span class="num-tip">{{data.question[currentItem].topic_name}}</span>
       </header>
       <div class="button home" v-if="fatherComponent == 'home'" @click="transfer"></div>
-      <div class="button item" v-if="fatherComponent == 'item'" @click="nextItem(data.question.length)"></div>
+      <div v-if="fatherComponent == 'item'">
+      <div class="button item"  v-if="currentItem < data.question.length-1" @click="nextItem(data.question.length)"></div>
+      <div class="button final"  else @click="nextItem(data.question.length)"></div>
+      </div>
   </div>
 </template>
 
@@ -52,9 +55,10 @@ import { mapState } from 'vuex'
               }else{
                 this.currentItem++
                 this.currentIndex = null
+                console.log(this.currentItem)
               }
               if(this.currentItem >= length){
-                this.$router.push('/')
+                this.$router.push('final')
               }
             },
             getDataSucc () {
@@ -125,6 +129,9 @@ import { mapState } from 'vuex'
       background-size:100% 100%
   .home
       background:url('../images/1-4.png')
+      background-size:100% 100%
+  .final
+      background:url('../images/3-1.png')
       background-size:100% 100%
 
 
